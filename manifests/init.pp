@@ -97,7 +97,6 @@ class mysql {
       mysql -u root mysql -P ${mysql::config::port} -S ${mysql::config::socket}",
     provider    => shell,
     creates     => "${mysql::config::datadir}/.tz_info_created",
-    subscribe   => Exec['wait-for-mysql'],
     refreshonly => true,
     require     => Exec['init-mysql-db']
   }
