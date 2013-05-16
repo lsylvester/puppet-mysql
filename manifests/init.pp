@@ -43,7 +43,7 @@ class mysql {
 
   package { 'boxen/brews/mysql':
     ensure => '5.5.20-boxen2',
-    notify => Exec['init-mysql-db']
+    notify => Service['dev.mysql']
   }
 
   file { "${boxen::config::homebrewdir}/var/mysql":
@@ -65,7 +65,7 @@ class mysql {
       Package['boxen/brews/mysql'],
       File["${boxen::config::homebrewdir}/var/mysql"]
     ],
-    notify   => Service['dev.mysql']
+    subscribe   => Service['dev.mysql']
   }
 
   service { 'dev.mysql':
@@ -97,7 +97,7 @@ class mysql {
       mysql -u root mysql -P ${mysql::config::port} -S ${mysql::config::socket}",
     provider    => shell,
     creates     => "${mysql::config::datadir}/.tz_info_created",
-    subscribe   => Exec['wait-for-mysql'],
+    subscribe   => Exec['init-mysql-db'],
     refreshonly => true
   }
 }
