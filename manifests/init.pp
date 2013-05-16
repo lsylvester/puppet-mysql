@@ -70,8 +70,8 @@ class mysql {
 
   service { 'dev.mysql':
     ensure  => running,
-    require => Exec[''init-mysql-db'],
-    notify  => Exec['wait-for-mysql'],
+    require => Exec['init-mysql-db'],
+    notify  => Exec['wait-for-mysql']
   }
 
   service { 'com.boxen.mysql': # replaced by dev.mysql
