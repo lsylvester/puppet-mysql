@@ -98,6 +98,7 @@ class mysql {
     provider    => shell,
     creates     => "${mysql::config::datadir}/.tz_info_created",
     subscribe   => Exec['wait-for-mysql'],
-    refreshonly => true
+    refreshonly => true,
+    require     => Exec['init-mysql-db']
   }
 }
