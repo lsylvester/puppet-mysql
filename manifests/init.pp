@@ -43,7 +43,7 @@ class mysql {
 
   package { 'boxen/brews/mysql':
     ensure => '5.5.20-boxen2',
-    notify => Service['dev.mysql']
+    before => Exec['init-mysql-db']
   }
 
   file { "${boxen::config::homebrewdir}/var/mysql":
@@ -70,7 +70,6 @@ class mysql {
 
   service { 'dev.mysql':
     ensure  => running,
-    require => Exec['init-mysql-db'],
     notify  => Exec['wait-for-mysql']
   }
 
